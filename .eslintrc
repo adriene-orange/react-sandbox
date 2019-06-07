@@ -1,0 +1,14 @@
+
+{
+    "extends": [
+      "@quotecenter/eslint-config-home-depot-quotecenter",
+    ],
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "rules": {
+      "react/jsx-one-expression-per-line": "allow"
+    },
+    "parser": "babel-eslint"
+  }
