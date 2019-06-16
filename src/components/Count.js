@@ -1,36 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import differenceWith from 'lodash/differenceWith';
 
 
-const Count = ({ requestCount, successCount, pendingCount}) => (
+
+const Count = ({ successScans, pendingScans}) => {
+    return (
     <p>
-        The number of missed requests = {requestCount.length-(successCount.length-pendingCount.length)}
+        Total Requests: {pendingScans.length}
+        <br />
         <br/>
-        Requests: {requestCount.length}
+        Requests in Queue= {pendingScans.length-(successScans.length)}
         <br />
-        Successes: {successCount.length}
+        Successes: {successScans.length}
         <br />
-        Pending: { pendingCount.length }
     </p>
 );
+};
 
 Count.propTypes = {
-    requestCount: PropTypes.array,
-    successCount: PropTypes.array,
+    pendingScans: PropTypes.array,
+    successScans: PropTypes.array,
 }
 
 Count.defaultProps = {
-    requestCount: [],
-    successCount: [],
-    pendingCount: [],
+    successScans: [],
+    pendingScans: [],
 }
 
 const mapStateToProps = (state) => {
     return ({
-        requestCount: state.scans,
-        successCount: state.successScans,
-        pendingCount: state.pendingScans,
+        successScans: state.successScans,
+        pendingScans: state.pendingScans,
 })};
 
 export default connect(mapStateToProps)(Count);

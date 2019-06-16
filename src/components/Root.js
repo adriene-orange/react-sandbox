@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import uuidv4 from 'uuid/v4';
 
 const Root = ({ simulateScan }) => {
     useEffect(() => {
@@ -9,7 +10,13 @@ const Root = ({ simulateScan }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    simulateScan: () => dispatch({ type: 'SCAN', data: Math.floor(Math.random() * 10) }),
+    simulateScan: () => dispatch({
+        type: 'SCAN',
+        data: {
+            id: uuidv4(),
+            scan: Math.floor(Math.random() * 10)
+        },
+    }),
 });
 
 

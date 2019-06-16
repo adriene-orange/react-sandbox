@@ -1,5 +1,5 @@
 const initialState = () => ({
-    scans: [],
+    scanCount: 0,
     successScans: [],
     pendingScans: [],
 });
@@ -14,13 +14,8 @@ export default (state=initialState(), action) => {
         case 'SCAN_REQUEST':
             return {
                 ...state,
-                scans: [...state.scans, action.data],
+                pendingScans: [...state.pendingScans, action.data],
             };
-        // case 'PENDING': 
-        //     return {
-        //         ...state,
-        //         pendingScans: [...state.pendingScans, action.data],
-        //     };
         default:
             return state;
     }
