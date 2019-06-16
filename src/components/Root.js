@@ -9,7 +9,7 @@ const Root = ({ simulateScan }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    simulateScan: () => dispatch({ type: 'HI', data: Math.floor(Math.random() * 10) }),
+    simulateScan: () => dispatch({ type: 'SCAN', data: Math.floor(Math.random() * 10) }),
 });
 
 

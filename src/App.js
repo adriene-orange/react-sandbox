@@ -5,6 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 
 import rootReducer from './rootReducer';
 import Root from './components/Root';
+import Count from './components/Count';
 import scanSaga from './sagas/scan';
 
 const sagaMiddleware = createSagaMiddleware()
@@ -14,6 +15,7 @@ const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
 const App = () => (
     <Provider store={store}>
         <Root />
+        <Count />
     </Provider>
 );
 
