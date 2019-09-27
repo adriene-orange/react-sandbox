@@ -19,7 +19,6 @@ class ToDoList extends Component {
         });
     }
     addTaskToList = (event) => {
-        event.preventDefault();
         const { items, currentTask } = this.state;
         const id = `${currentTask}-${items.length + 1}`;
         const newToDo = {
@@ -72,7 +71,7 @@ class ToDoList extends Component {
                     <form id="add-to-do" onSubmit={this.addTaskToList}>
                         <input value={currentTask} onChange={this.onChangeHandler} type="text" placeholder="Add a task!"/>
                         &nbsp;
-                        <input type="submit" />
+                        <button type="submit">Add</button>
                     </form>
                 </label>
                 {

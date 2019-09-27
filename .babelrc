@@ -10,8 +10,8 @@
     ],
     "plugins": [
       "@babel/plugin-transform-regenerator",
-      "transform-class-properties",
-      "transform-es2015-spread",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-spread",
       "@babel/plugin-transform-runtime"
     ],
     "env": {

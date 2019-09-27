@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const TODO = 'To do';
 const COMPLETED = 'Completed';
@@ -18,4 +19,5 @@ const StatusSelect = ({
     )
 }
 
+// export default connect()(StatusSelect);
 export default StatusSelect;
