@@ -39,6 +39,8 @@
     "jest": "^24.9.0"
   },
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
   }
 }
