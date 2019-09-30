@@ -19,6 +19,7 @@ class ToDoList extends Component {
         });
     }
     addTaskToList = (event) => {
+        event.preventDefault();
         const { items, currentTask } = this.state;
         const id = `${currentTask}-${items.length + 1}`;
         const newToDo = {
@@ -85,7 +86,13 @@ class ToDoList extends Component {
                                         &nbsp;
                                         <StatusSelect id={id} value={status} onChange={this.updateTaskStatus} />
                                         &nbsp;
-                                        <button name={id} type="button" onClick={this.removeTaskFromList}>Delete</button>
+                                        <button
+                                            name={id}
+                                            data-testid={`${id}-delete`}
+                                            type="button"
+                                            onClick={this.removeTaskFromList}>
+                                                Delete
+                                        </button>
                                     </label>
                                 </li>
                             ))
