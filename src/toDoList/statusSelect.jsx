@@ -20,4 +20,4 @@ const StatusSelect = ({
 }
 
 // export default connect()(StatusSelect);
-export default StatusSelect; 
+export default StatusSelect;

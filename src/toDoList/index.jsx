@@ -79,7 +79,6 @@ class ToDoList extends Component {
                         <ul>
                         {
                             items.map(({ id, task, status }) => (
-
                                 <li key={id}>
                                     <label htmlFor={id} style={listItemStyle}>
                                         <h3>{task}-{status}</h3>
@@ -100,4 +99,4 @@ class ToDoList extends Component {
     }
 }
 
-export default ToDoList; 
+export default ToDoList;
