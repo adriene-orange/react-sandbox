@@ -12,12 +12,12 @@ describe('<ToDoList />', () => {
         const addTaskButton = getByText('Add', { selector: 'button' });
 
         // Lets assert about what is important
-        expect(addTaskInput).toBeInTheDocument();  // It was rendered
+        // expect(addTaskInput).toBeInTheDocument();  // It was rendered
         expect(addTaskInput).toHaveValue('');  // It was initialized properly
         expect(addTaskInput).toBeVisible();   // The user can see it
         expect(addTaskInput).not.toBeDisabled();  // The user can interact with it
         
-        expect(addTaskButton).toBeInTheDocument(); // It was rendered
+        // expect(addTaskButton).toBeInTheDocument(); // It was rendered
         expect(addTaskButton).toBeVisible(); // The user can see it
         expect(addTaskButton).not.toBeDisabled(); // The user can interact with it
 
@@ -52,40 +52,35 @@ describe('<ToDoList />', () => {
         const { getByPlaceholderText, getByText, queryByLabelText, getByTestId } = render(<ToDoList />);
         const addTaskInput = getByPlaceholderText('Add a task!', { selector: 'input' });
         const addTaskButton = getByText('Add', { selector: 'button' });
-        const newTask = 'Write tests';
+        const firstTask = 'Write tests';
         const secondTask = 'Write moar tests';
 
-        fireEvent.change(addTaskInput, { target: { value: newTask }});
+        // Add the first task
+        fireEvent.change(addTaskInput, { target: { value: firstTask }});
         fireEvent.click(addTaskButton);
-
-        const newTaskListItem = queryByLabelText(`${newTask}`, { exact: false });
-        const newTaskSelect = queryByLabelText(`${newTask}`, { exact: false, selector: 'select'});
-
-        expect(newTaskListItem).toBeInTheDocument();
-        expect(newTaskListItem).toBeVisible();
-
-        expect(newTaskSelect).toHaveValue('To do');
-        expect(newTaskSelect).toBeVisible();
-        expect(newTaskSelect).not.toBeDisabled();
-
         // Add another task
         fireEvent.change(addTaskInput, { target: { value: secondTask }});
         fireEvent.click(addTaskButton);
 
+        const newTaskListItem = queryByLabelText(`${firstTask}`, { exact: false });
+        const newTaskSelect = queryByLabelText(`${firstTask}`, { exact: false, selector: 'select'});
         const secondTaskListItem = queryByLabelText(`${secondTask}`, { exact: false });
         const secondTaskSelect = queryByLabelText(`${secondTask}`, { exact: false, selector: 'select'});
 
-        expect(secondTaskListItem).toBeInTheDocument();
-        expect(secondTaskListItem).toBeVisible();
+        expect(newTaskListItem).toBeVisible();
+        expect(newTaskSelect).toHaveValue('To do');
+        expect(newTaskSelect).toBeVisible();
+        expect(newTaskSelect).not.toBeDisabled();
 
+        expect(secondTaskListItem).toBeVisible();
         expect(secondTaskSelect).toHaveValue('To do');
         expect(secondTaskSelect).toBeVisible();
         expect(secondTaskSelect).not.toBeDisabled();
 
         // update the first task
-        fireEvent.change(newTaskSelect, { target: { name: `${newTask}-1`, value: 'Completed' }});
+        fireEvent.change(newTaskSelect, { target: { name: `${firstTask}-1`, value: 'Completed' }});
 
-        expect(queryByLabelText(`${newTask}`, { exact: false, selector: 'select'})).toHaveValue('Completed');
+        expect(queryByLabelText(`${firstTask}`, { exact: false, selector: 'select'})).toHaveValue('Completed');
 
         // delete the second task -- lets add a test id attribute since there is no unique
         // identifier here
