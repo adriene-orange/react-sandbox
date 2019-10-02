@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { filter, findIndex } from 'lodash';
 import StatusSelect from './statusSelect';
-
 
 class ToDoList extends Component {
     constructor(props) {
@@ -19,6 +18,7 @@ class ToDoList extends Component {
         });
     }
     addTaskToList = (event) => {
+        event.preventDefault();
         const { items, currentTask } = this.state;
         const id = `${currentTask}-${items.length + 1}`;
         const newToDo = {
