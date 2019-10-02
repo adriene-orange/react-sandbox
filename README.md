@@ -41,3 +41,6 @@ The instructions for each subset of the workshop can be found in PR's:
 - [Enzyme PR](https://github.com/adriene-orange/react-sandbox/pull/1)
 - [Go to the Test Library PR](https://github.com/adriene-orange/react-sandbox/pull/2)
 
+
+## Notes
+`mount` and `render` both are meant for full DOM rendering. They rely on `jsdom` to mock out the browser's api. `jsdom` does not currently support mocking out navigation functionality, so the api for `window.location` has to be implemented either per test or in the test setup file.
