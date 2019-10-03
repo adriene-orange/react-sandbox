@@ -17,13 +17,8 @@ describe('<ToDoList />', () => {
         expect(addTaskInput).toBeVisible();   // The user can see it
         expect(addTaskInput).not.toBeDisabled();  // The user can interact with it
         
-        // expect(addTaskButton).toBeInTheDocument(); // It was rendered
         expect(addTaskButton).toBeVisible(); // The user can see it
         expect(addTaskButton).not.toBeDisabled(); // The user can interact with it
-
-        // Test this out. Go into index.jsx and change the return type to null
-        // Remove the input or pass in disabled as a property
-        // These tests will now fail.
  
     });
     test('adding a task renders a new list item in the document', () => {
@@ -31,7 +26,6 @@ describe('<ToDoList />', () => {
         const addTaskInput = getByPlaceholderText('Add a task!', { selector: 'input' });
         const addTaskButton = getByText('Add', { selector: 'button' });
         const newTask = 'Write tests';
-        const secondTask = 'Write moar tests';
 
         fireEvent.change(addTaskInput, { target: { value: newTask }});
         fireEvent.click(addTaskButton);
@@ -39,13 +33,12 @@ describe('<ToDoList />', () => {
         const newTaskListItem = getByLabelText(`${newTask}`, { exact: false });
         const newTaskSelect = getByLabelText(`${newTask}`, { exact: false, selector: 'select'});
 
-        expect(newTaskListItem).toBeInTheDocument();
         expect(newTaskListItem).toBeVisible();
 
         expect(newTaskSelect).toHaveValue('To do');
         expect(newTaskSelect).toBeVisible();
         expect(newTaskSelect).not.toBeDisabled();
- 
+
     });
     // Full BDD
     test('adding, updating and deleting tasks works', () => {
@@ -89,5 +82,34 @@ describe('<ToDoList />', () => {
     
         expect(queryByLabelText(`${secondTask}`)).not.toBeInTheDocument();
  
+    });
+
+    test('Clicking the click button logs clicks', () => {
+        const spy = jest.spyOn(console, 'log');
+        const ClickButton = () => (
+            <button type="button" onClick={() => console.log('click')}>Click Me!</button>
+        );
+        const { getByText } = render(<ClickButton />);
+        fireEvent.click(getByText('Click Me!'));
+        expect(spy).toHaveBeenCalledWith('click');
+    });
+    test('when helloFlag is true it logs hi', () => {
+        const spy = jest.spyOn(console, 'log');
+        const ClickButton = ({ helloFlag=false }) => {
+            React.useEffect(() => {
+                if(helloFlag) {
+                    console.log('hi');
+                }
+            }, [helloFlag]);
+            return <button type="button" onClick={() => console.log('click')}>Click Me!</button>;
+        }
+        const { rerender } = render(<ClickButton />);
+        // hi was not logged when flag is false
+        expect(spy).not.toHaveBeenCalledWith('hi');
+
+        // trigger a re-render
+        rerender(<ClickButton helloFlag />);
+
+        expect(spy).toHaveBeenCalledWith('hi');
     });
 })
