@@ -45,5 +45,39 @@ describe('<HorribleATM />', () => {
         expect(getByLabelText('Deposit')).toBeDisabled();
 
         expect(getByText('You Lose!')).toBeVisible();
+    });
+    test('if the user withdraws an amount between 100-999 a $5 fee is charged and $1 is deposited', () => {
+        const { getByText, getByLabelText } = render(<HorribleATM />);
+
+        const withdrawInput = getByLabelText('Withdraw');
+        fireEvent.change(withdrawInput, { target: { value: 101 }});
+        fireEvent.keyDown(withdrawInput, { key: 'Enter', keyCode: 13 })
+        expect(getByText('Current Fees:', { exact: false })).toHaveTextContent('$5');
+        expect(getByText('Current Balance:', { exact: false })).toHaveTextContent('$6');
     })
+    test('when fees > balance the fields are locked and a game over message is shown', () => {
+        const { getByText, getByLabelText } = render(<HorribleATM />);
+
+        const withdrawInput = getByLabelText('Withdraw');
+        fireEvent.change(withdrawInput, { target: { value: 101 }});
+        fireEvent.keyDown(withdrawInput, { key: 'Enter', keyCode: 13 })
+        fireEvent.change(withdrawInput, { target: { value: 101 }});
+        fireEvent.keyDown(withdrawInput, { key: 'Enter', keyCode: 13 });
+
+        expect(getByText('Current Fees:', { exact: false })).toHaveTextContent('$10');
+        expect(getByText('Current Balance:', { exact: false })).toHaveTextContent('$7');
+        expect(getByLabelText('Withdraw')).toBeDisabled();
+        expect(getByLabelText('Deposit')).toBeDisabled();
+
+        expect(getByText('You Lose!')).toBeVisible();
+    });
+    test('when the withdraw amount is a multiple of four, 4x the amount is deposited instead', () => {
+        const { getByText, getByLabelText } = render(<HorribleATM />);
+
+        const withdrawInput = getByLabelText('Withdraw');
+        fireEvent.change(withdrawInput, { target: { value: 4 }});
+        fireEvent.keyDown(withdrawInput, { key: 'Enter', keyCode: 13 })
+        const expectedBalance = 5 + (4 *4);
+        expect(getByText('Current Balance:', { exact: false })).toHaveTextContent(`${expectedBalance}`);
+    });
 });
