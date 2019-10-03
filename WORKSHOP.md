@@ -5,10 +5,18 @@ Try out the react testing library while building something to frustrate your fri
 You can write the component first or try out TDD.
 OPTIONAL CHALLENGE: Do not run `npm start` or manually test your code until you have finished your tests.
  
- 1. Create the world's most frustrating ATM
- 2. On first load the component renders the account's current balance of $5, atm fees paid is $0
- 3. Users can withdraw or add money to their account
- 4. The rules of the ATM are:
+Create the world's worst ATM
+This ATM will hold the user's card hostage until it answers the worlds most difficult question.
+The user submits answers by depositing and withdrawing money from the ATM.
+   
+ 1. On first load the "atm" renders an "insert card" button, a current balance of $5 and a current atm fees $0, some way to deposit/withdraw money.
+ 2. The withdraw and deposit inputs are disabled until the "insert card" button is clicked
+ 3. If the user clicks the buttons the "ATM":
+    1. The "Insert card button" changes text to "Remove card"
+    2. The "Remove Card" button is disabled
+    3. The ATM asks the user "what is the meaning of life?"
+ 4. Users can withdraw or add money to their account to try and get the right answer
+ 5. The rules of the ATM are:
     1. If the balance reaches 0 or below the account locks and the user loses
     2. If the number of fees exceed the current balance, the user loses
     3. If the withdraw/deposit amount includes change take the change as a transaction fee. 
@@ -21,5 +29,7 @@ OPTIONAL CHALLENGE: Do not run `npm start` or manually test your code until you 
        2. If the amount is even, half it before depositing it
        3. If the amount is a prime number, the current balance is reset to 5, fees remain the same
        4. let all other deposits add to the current balance
-    6. If the current balance is $42 the user wins
+    6. If the current balance is $42
+       1. The "Remove Card" button is enabled
+    7. If the user clicks the "Remove Card" button they win
 
