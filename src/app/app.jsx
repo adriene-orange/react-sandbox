@@ -3,9 +3,7 @@ import React from 'react';
 import ToDoList from '../toDoList';
 
 
-const App = () => (
-        <ToDoList />
-);
+const App = () => (null);
 
 
 export default App;
