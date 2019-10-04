@@ -10,12 +10,10 @@ describe('<HorribleATM />', () => {
         const withdrawInput = getByLabelText('Withdraw');
         expect(withdrawInput).toBeVisible();
         expect(withdrawInput).not.toBeDisabled();
-        expect(withdrawInput).toHaveValue(0);
 
         const depositInput = getByLabelText('Deposit');
         expect(depositInput).toBeVisible();
         expect(depositInput).not.toBeDisabled();
-        expect(depositInput).toHaveValue(0);
     });
     test('users can withdraw and deposit money and see an updated balance', () => {
         const { getByText, getByLabelText } = render(<HorribleATM />);

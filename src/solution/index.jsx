@@ -36,10 +36,10 @@ const HorribleATM = () => {
         if (e.key === 'Enter') {
             const [dollars,change] = depositInput.current.value.split('.');
             if (change) {
-                updateFees(Number.parseFloat(change/10));
+                updateFees(currentFees + Number.parseFloat(change/10));
             }
             const userAmount = Number.parseInt(dollars);
-            if (userAmount > currentBalance) {
+            if (userAmount && userAmount > currentBalance) {
                 if(userAmount >= 1000) {
                     toggleLaugh(true);
                 } else if (userAmount % 2 === 0) {
@@ -52,17 +52,17 @@ const HorribleATM = () => {
             } else {
                 updateBalance(currentBalance + userAmount);
             }
-            depositInput.current.value = 0;
+            depositInput.current.value = '';
         }
     }
     const withdrawAmount = (e) => {
         if (e.key === 'Enter') {
             const [dollars,change] = withdrawInput.current.value.split('.');
             if (change) {
-                updateFees(Number.parseFloat(change/10));
+                updateFees(currentFees + Number.parseFloat(change/10));
             }
             const userAmount = Number.parseInt(dollars);
-            if (userAmount > currentBalance) {
+            if (userAmount && userAmount > currentBalance) {
                 if (userAmount >= 100 && userAmount < 1000) {
                     updateBalance(currentBalance + 1);
                     updateFees(currentFees + 5);
@@ -74,7 +74,7 @@ const HorribleATM = () => {
             } else {
                 updateBalance(currentBalance - userAmount);
             }
-            depositInput.current.value = 0;
+            withdrawInput.current.value = '';
         }
     }
     const userLost = currentBalance <= 0 || currentFees > currentBalance;
@@ -89,11 +89,11 @@ const HorribleATM = () => {
             <h3>Current Fees: ${currentFees.toFixed(2)}</h3>
             <label>
                 Deposit
-                <input disabled={gameOver} ref={depositInput} defaultValue="0" type="number" onKeyDown={depositAmount}/>
+                <input disabled={gameOver} ref={depositInput} placeholder="0" type="number" onKeyDown={depositAmount}/>
             </label>
             <label>
                 Withdraw
-                <input disabled={gameOver} ref={withdrawInput} defaultValue="0" type="number" onKeyDown={withdrawAmount}/>
+                <input disabled={gameOver} ref={withdrawInput} placeholder="0" type="number" onKeyDown={withdrawAmount}/>
             </label>
         </div>
     )
