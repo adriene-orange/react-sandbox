@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ToDoList from '../toDoList';
+import HorribleATM from '../solution';
 
 
-const App = () => (null);
+const App = () => (<HorribleATM />);
 
 
 export default App;
