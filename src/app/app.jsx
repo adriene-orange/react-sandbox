@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ToDoList from '../toDoList';
+import HorribleATM from './atm/atm';
 
 
 const App = () => (null);
