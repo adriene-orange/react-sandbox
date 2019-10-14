@@ -1,22 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { all } from 'redux-saga/effects';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import toDoListReducer from './toDoList/toDoListReducer';
-import toDoListSaga from './toDoList/toDoListSaga';
+import { rootReducer } from './rootReducer';
+import { rootSaga } from './rootSaga';
 
 import App from './app/app';
 
-function* rootSaga () {
-    yield all([toDoListSaga()]);
-}
-
-const rootReducer = combineReducers({
-    todo: toDoListReducer,
-});
 
 const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();

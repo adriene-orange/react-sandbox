@@ -1,6 +1,7 @@
-import { put, takeEvery, delay } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import uuidV4 from 'uuid/v4'
 import { generateUpdateAction } from './toDoListReducer';
+import { addToDoService } from './toDoServices';
 
 function* updateToDoList({ updateType, taskDetails, taskId }) {
     try {
@@ -18,8 +19,8 @@ function* updateToDoList({ updateType, taskDetails, taskId }) {
                 uiStatus: 'PENDING',
             }
         }));
-        // wait 30 seconds
-        yield delay(3000);
+    
+        yield call(addToDoService);
         yield put(generateUpdateAction({
             type: updateType,
             taskDetails: {
