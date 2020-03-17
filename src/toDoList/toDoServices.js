@@ -1,6 +1,5 @@
 
-const { superagent: request } = window;
-
+const request = window.superagent;
 export const addToDoService = ({ todo }) => request
   .post('/api/todos')
   .send({ todo })
