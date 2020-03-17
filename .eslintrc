@@ -8,7 +8,9 @@
       "jest": true
     },
     "rules": {
-      "react/jsx-one-expression-per-line": "allow"
+      "import/prefer-default-export": "off",
+      "react/jsx-one-expression-per-line": "allow",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     },
     "parser": "babel-eslint"
   }
