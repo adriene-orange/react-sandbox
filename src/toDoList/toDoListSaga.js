@@ -8,11 +8,11 @@ import {
 } from './toDoServices';
 
 function* updateToDoList({ updateType, taskDetails, taskId }) {
+  const id = taskId || uuidV4();
   try {
     if (!taskDetails && updateType !== 'REMOVE_TASK') {
       throw new Error('Invalid payload');
     }
-    const id = taskId || uuidV4();
     yield put(generateUpdateAction({
       type: 'SET_TASK_TO_PENDING',
       taskId: id,
@@ -23,13 +23,9 @@ function* updateToDoList({ updateType, taskDetails, taskId }) {
     // Delete Task
     if (updateType === 'REMOVE_TASK') {
       yield call(deleteToDoService, { id });
-    }
-    // Update Task
-    else if (taskId) {
+    } else if (taskId) {
       yield call(updateToDoService, { todo: { id, taskDetails } });
-    }
-    // Create task
-    else {
+    } else {
       yield call(addToDoService, { todo: { id, taskDetails } });
     }
     yield put(generateUpdateAction({

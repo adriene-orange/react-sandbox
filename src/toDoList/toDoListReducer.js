@@ -41,6 +41,18 @@ export const failureAction = ({
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+    case 'FAILURE': {
+      const { taskId, updateType } = action;
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [taskId]: {
+            errorMessage: `Could not ${updateType} task: ${taskId}`,
+          },
+        },
+      };
+    }
     case 'LOAD_TODO_LIST_SUCCESS': {
       const { todos } = action;
       if (todos.length > 0) {
@@ -53,7 +65,7 @@ export default (state = initialState, action = {}) => {
           items,
         };
       }
-      break;
+      return state;
     }
     case 'SET_TASK_TO_PENDING':
     case 'UPDATE_TASK':
@@ -64,7 +76,6 @@ export default (state = initialState, action = {}) => {
         ...items[taskId],
         ...taskDetails,
       }) : taskItemModel(taskDetails);
-      console.log(newTask);
       return {
         ...state,
         items: { ...state.items, [taskId]: newTask },

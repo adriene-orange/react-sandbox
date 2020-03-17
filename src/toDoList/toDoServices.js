@@ -1,6 +1,5 @@
 
-import request from 'superagent';
-
+const { superagent: request } = window;
 
 export const addToDoService = ({ todo }) => request
   .post('/api/todos')
