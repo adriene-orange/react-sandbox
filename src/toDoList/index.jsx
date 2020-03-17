@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash/get';
 import map from 'lodash/map';
 import { updateToDoListRequest } from './toDoListReducer';
-
+import {
+    fetchAllTodosService,
+} from './toDoServices';
 
 const TODO = 'To do';
 const COMPLETED = 'Completed';
@@ -13,18 +15,39 @@ const ToDoList = () => {
     const items = useSelector((state) => get(state, 'todo.items'));
     const dispatch = useDispatch();
     const addTaskInputRef = useRef();
-    const statusSelectRef = useRef();
-    const deleteButtonRef = useRef();
 
-    const removeTaskFromList = () => dispatch(updateToDoListRequest({ updateType: 'REMOVE_TASK', taskId: deleteButtonRef.current.name }));
-    const updateTaskStatus = () => dispatch(updateToDoListRequest({
+    useEffect(() => {
+        const getAllTodos = async () => {
+            try {
+                dispatch({
+                    type: 'LOAD_TODO_LIST',
+                });
+                const { todos } = await fetchAllTodosService();
+                dispatch({
+                    type: 'LOAD_TODO_LIST_SUCCESS',
+                    todos,
+                });
+            } catch (error) {
+                dispatch({
+                    type: 'LOAD_TODO_LIST_FAILURE',
+                    error,
+                });
+            }
+        }
+        getAllTodos();
+        
+    }, []);
+
+    const removeTaskFromList = useCallback((taskId) => dispatch(updateToDoListRequest({ updateType: 'REMOVE_TASK', taskId })));
+    const updateTaskStatus = useCallback((taskId, status ) => dispatch(updateToDoListRequest({
         updateType: 'UPDATE_TASK',
-        taskId: statusSelectRef.current.name,
-        taskDetails: { status: statusSelectRef.current.value }
-    }));
+        taskId,
+        taskDetails: { status },
+    })));
     const addTaskToList = (e) => {
         e.preventDefault();
-        dispatch(updateToDoListRequest({ updateType: 'ADD_TASK', taskDetails: { value: addTaskInputRef.current.value } }))
+        dispatch(updateToDoListRequest({ updateType: 'ADD_TASK', taskDetails: { value: addTaskInputRef.current.value } }));
+        addTaskInputRef.current.value = "";
     };
 
     const listItemStyle = {
@@ -66,16 +89,16 @@ const ToDoList = () => {
                             }
                             return (
                                 <li key={id}>
-                                    <label style={listItemStyle}>
-                                        <h3>{value}-{status}</h3>
+                                    <label style={listItemStyle} htmlFor={id}>
+                                        <h3>{value}</h3>
                                         &nbsp;
-                                        <select ref={statusSelectRef} name={id} defaultValue={value} onChange={updateTaskStatus}>
-                                            <option value={TODO}>{TODO}</option>
-                                            <option value={COMPLETED}>{COMPLETED}</option>
-                                            <option value={INPROGRESS}>{INPROGRESS}</option>
+                                        <select id={id} defaultValue={status} name={id} onChange={(e) => updateTaskStatus(id, e.target.value)}>
+                                            <option value={TODO} >{TODO}</option>
+                                            <option value={COMPLETED} >{COMPLETED}</option>
+                                            <option value={INPROGRESS} >{INPROGRESS}</option>
                                          </select>
                                         &nbsp;
-                                        <button ref={deleteButtonRef} name={id} type="button" onClick={removeTaskFromList}>Delete</button>
+                                        <button name={id} type="button" onClick={() => removeTaskFromList(id)}>Delete</button>
                                     </label>
                                 </li>
                             )

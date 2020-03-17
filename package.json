@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "faker": "^4.1.0",
     "ldoash": "0.0.1-security",
     "lodash": "4.17.15",
     "prop-types": "15.7.2",
@@ -21,6 +22,7 @@
     "redux": "4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "1.1.1",
+    "superagent": "^5.2.2",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -40,7 +42,8 @@
     "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "miragejs": "^0.1.35"
   },
   "jest": {
     "setupFilesAfterEnv": [
