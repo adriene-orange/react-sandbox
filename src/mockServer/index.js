@@ -2,7 +2,7 @@ import uuidV4 from 'uuid/v4';
 import faker from 'faker';
 import { Server, Model, Factory } from 'miragejs';
 
-export const makeToDOServer = ({ environment = 'development' } = {}) => new Server({
+export const makeToDOServer = (environment) => new Server({
   environment,
   models: {
     todo: Model,
@@ -40,6 +40,10 @@ export const makeToDOServer = ({ environment = 'development' } = {}) => new Serv
     });
   },
   seeds(server) {
-    const todos = server.createList('todo', 3);
+    server.createList('todo', 3);
   },
 });
+
+export default ({ environment = 'development' } = {}) => {
+  makeToDOServer(environment);
+};
