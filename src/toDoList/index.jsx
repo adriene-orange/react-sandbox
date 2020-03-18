@@ -68,7 +68,7 @@ const ToDoList = () => {
         <form id="ADD_TASK" onSubmit={addTaskToList}>
           <input ref={addTaskInputRef} defaultValue="" type="text" placeholder="Add a task!" />
                     &nbsp;
-          <button type="submit">Add</button>
+          <button data-testid="add-button" type="submit">Add</button>
         </form>
       </label>
       {
