@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
-    "start": "parcel index.html --open",
+    "test": "jest NODE_ENV=test --watch",
+    "start": "parcel NODE_ENV=development index.html --open",
     "build": "rimraf dist && parcel build index.html",
     "clean": "rimraf dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "faker": "^4.1.0",
     "ldoash": "0.0.1-security",
     "lodash": "4.17.15",
     "prop-types": "15.7.2",
@@ -21,6 +22,7 @@
     "redux": "4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "1.1.1",
+    "superagent": "^5.2.2",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -40,7 +42,14 @@
     "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "jest": "^24.9.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "jest": "^24.9.0",
+    "miragejs": "^0.1.35"
   },
   "jest": {
     "setupFilesAfterEnv": [

@@ -1,3 +1,23 @@
 
-export const addToDoService = (delay=3000, value=true) =>
-    new Promise(resolve => setTimeout(resolve, delay, value));
+const request = window.superagent;
+export const addToDoService = ({ todo }) => request
+  .post('/api/todos')
+  .send({ todo })
+  .set('Accept', 'application/json')
+  .then((res) => res.body);
+
+export const updateToDoService = ({ todo }) => request
+  .put(`/api/todos/${todo.id}`)
+  .send({ todo })
+  .set('Accept', 'application/json')
+  .then((res) => res.body);
+
+export const deleteToDoService = ({ id }) => request
+  .del(`/api/todos/${id}`)
+  .set('Accept', 'application/json')
+  .then((res) => res.body);
+
+export const fetchAllTodosService = () => request
+  .get('/api/todos/')
+  .set('Accept', 'application/json')
+  .then((res) => res.body);
