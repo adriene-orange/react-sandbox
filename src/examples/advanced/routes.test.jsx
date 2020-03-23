@@ -10,8 +10,10 @@ import RouteComponent, {
   InnerRoutes,
 } from './components/routeComponents';
 
+const clearWindowHistory = () => window.history.replaceState(null, '', '/');
+
 describe('RouteComponent', () => {
-  afterEach(() => { window.history.replaceState(null, '', '/'); });
+  afterEach(() => clearWindowHistory());
   test('testing for route changes - MemoryRouter', () => {
     // Keep a copy of the location
     let localLocation;
