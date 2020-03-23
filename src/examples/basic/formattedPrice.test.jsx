@@ -36,12 +36,15 @@ describe('Querying for Abnormal Text', () => {
     // that matches the partial text
     // In this case we'd want to query for '$'
 
+    // Because this is a partial string match across several lines
+    // we need to tell our query not to do an exact match
+    // (ignore white space, accept partial string match)
     expect(getByText('$', { exact: false })).toHaveTextContent('$1234');
 
     // toHaveTextContent is an extension RTL provides on jest's expect lib
     // It's full of very useful assertions toBeVisible(), toBeChecked(), toHaveValue()
   });
-  // test('text is broken across several lines', () => {
+  // test('other ways to query', () => {
 
   // });
 });
