@@ -11,15 +11,13 @@ import {
   Link,
 } from 'react-router-dom';
 
-const createRootReducer = (history) => combineReducers({
-  router: connectRouter(history),
-  app: () => [],
-});
-
-const generateStore = (preloadedState = {}) => {
+export const generateStore = (preloadedState = {}, reducers = {}) => {
   const history = createBrowserHistory();
   const store = createStore(
-    createRootReducer(history),
+    combineReducers({
+      router: connectRouter(history),
+      ...reducers,
+    }),
     preloadedState,
     applyMiddleware(
       routerMiddleware(history),
@@ -28,15 +26,33 @@ const generateStore = (preloadedState = {}) => {
   return { store, history };
 };
 
-const { store, history } = generateStore();
+const appReducers = {
+  app: () => ({ text: 'Dummy state' }),
+};
 
-export default () => (
+const { store, history } = generateStore(undefined, appReducers);
+
+const Wrapper = ({ children }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Switch>
-        <Route exact path="/" render={() => (<Link to="/miss">Match</Link>)} />
-        <Route path="/miss" render={() => (<Link to="/">Miss</Link>)} />
-      </Switch>
+      {children}
     </ConnectedRouter>
   </Provider>
 );
+
+export const InnerRoutes = () => (
+  <Switch>
+    <Route exact path="/" render={() => (<Link to="/miss">Match</Link>)} />
+    <Route path="/miss" render={() => (<Link to="/">Miss</Link>)} />
+  </Switch>
+);
+
+const App = () => (
+  <Wrapper>
+    <Switch>
+      <InnerRoutes />
+    </Switch>
+  </Wrapper>
+);
+
+export default App;
