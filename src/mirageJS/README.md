@@ -22,4 +22,19 @@
 - Requires Storefront client to be split from the server, at least for the mock workflow
 - Going to require us to actually have API documentation in the server to know what the mocks should be
 
+## How to run the POC
+
+- Clone this repo
+- `npm i`
+- `npm start`
+
+The app will open in a new tab/window. You can open you the browser console and as you add, update, delete tasks you can see MirageJS logging to the console.
+
+Run the tests:
+Note: I need to fix this
+
+- `npm run test`
+- Then hit `p` to select the tests to run by file name
+- Type in `src/mirageJS`
+
 
